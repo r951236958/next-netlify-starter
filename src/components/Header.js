@@ -1,5 +1,5 @@
-import React, { Component }  from 'react';
-import Typography from '@material-ui/core/Typography';
+import React, { Component } from 'react'
+import Typography from '@material-ui/core/Typography'
 
 export default function Header({ title }) {
   return (
