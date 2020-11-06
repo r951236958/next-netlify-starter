@@ -24,7 +24,7 @@ import Copyright from './components/Copyright'
 //import App from './App';
 import Home from './Home'
 import theme from './theme'
-import MenuListComposition from './components/MenuListComposition'
+import MenuListComposition from './components/MyMenuList'
 
 //window.netlifyIdentity = netlifyIdentity;
 // You must run this once before trying to interact with the widget

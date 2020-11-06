@@ -3,7 +3,8 @@ import React from 'react'
 import Head from 'next/head'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Copyright from './components/Copyright'
+import ContactForm from './components/ContactForm'
+import SignUp from './components/SignUp'
 
 import { makeStyles } from '@material-ui/core/styles'
 //import InboxIcon from '@material-ui/icons/Inbox'
@@ -40,10 +41,6 @@ const useStyles = makeStyles((theme) => ({
     }
   }
 }))
-
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />
-}
 
 function ButtonS(props) {
   return <Button {...props} />
@@ -214,117 +211,18 @@ export default function Home() {
             </Box>
           </Grid>
         </Grid>
-
         <Paper>
-          <Grid container spacing={1}>
-            <Grid item xs={12} sm={6}>
-              <Box color="text.primary" my={2}>
-                <List component="nav" aria-label="main mailbox folders">
-                  <ListItem button>
-                    <ListItemIcon>
-                      <InboxIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Inbox" />
-                  </ListItem>
-                  <ListItem button>
-                    <ListItemIcon>
-                      <DraftsIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Drafts" />
-                  </ListItem>
-                  <ListItem button>
-                    <ListItemText primary="Hello" />
-                  </ListItem>
-                </List>
-                <Divider />
-                <List component="nav" aria-label="secondary mailbox folders">
-                  <ListItem button>
-                    <ListItemText primary="Trash" />
-                  </ListItem>
-                  <ListItemLink href="#simple-list">
-                    <ListItemText primary="Spam" />
-                  </ListItemLink>
-                </List>
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <MenuList class="menulist">
-                <MenuItem>
-                  <Link
-                    color="textPrimary"
-                    href="https://translate.google.com/?hl=zh-TW&tab=TT#view=home&op=translate&sl=auto&tl=zh-CN"
-                  >
-                    <i className="material-icons left">g_translate</i>Google翻譯
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    color="textPrimary"
-                    href="https://docs.google.com/spreadsheets/d/1gzDP5JSYbjPs3ypXvHgZXDp7hbczR5l0OxVDBulMjG0"
-                  >
-                    <i className="material-icons left">today</i>日報
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    color="textPrimary"
-                    href="https://docs.google.com/document/d/1rxUeCFo3CkjF4Vj-GWdrom10mPnWe6_bKdR6CT_GjV8"
-                  >
-                    <i className="material-icons left">history_edu</i>批注詞
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    color="textPrimary"
-                    href="https://docs.google.com/spreadsheets/d/1mtz6488MHF6LxGPVro5X5qneZJt2Hv3SqLekWwwk0zw"
-                  >
-                    <i className="material-icons left">calculate</i>數據計算
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    color="textPrimary"
-                    href="https://docs.google.com/spreadsheets/d/18SWgCzsUB4rHSNl_qEe8OrlbmwGvqnZkv3wuKQznshY"
-                  >
-                    <i className="material-icons left">filter_alt</i>篩選總表
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    color="textPrimary"
-                    href="https://docs.google.com/spreadsheets/d/1BEgZRROTF-8GyU7KFfG0BT-Gkh1o9qJlzNECzQh14jI"
-                  >
-                    <i className="material-icons left">source</i>匯入處理
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    color="textPrimary"
-                    href="https://docs.google.com/spreadsheets/d/1k9zLpIV5fNq66qujBc8cWxpvCa2nTqWScxlTmowG7Ws"
-                  >
-                    <i className="material-icons left">folder_shared</i>
-                    採購部共用
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    color="textPrimary"
-                    href="https://docs.google.com/spreadsheets/d/1gqruDNC_8Dp3r5BEuD-lDiL8jlvb4rZMfvXWk1hrYHA"
-                  >
-                    <i className="material-icons left">folder_shared </i>
-                    Jayden共用
-                  </Link>
-                </MenuItem>
-              </MenuList>
-            </Grid>
-          </Grid>
+          <SignUp />
         </Paper>
+        <Grid container spacing={1}>
+          <Grid item md={12} xs={8}></Grid>
+
+          <Grid item xs={12} sm={6}>
+            <ContactForm />
+          </Grid>
+        </Grid>
       </Typography>
 
-      <Box mb={2}>
-        <Copyright />
-      </Box>
       <Footer />
     </Typography>
   )

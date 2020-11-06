@@ -24,7 +24,7 @@ import Copyright from './components/Copyright'
 //import App from './App';
 import Layout from './Layout'
 import theme from './theme'
-import MenuListComposition from './components/MenuListComposition'
+import MenuListComposition from './components/MyMenuList'
 import * as serviceWorker from './serviceWorker'
 
 export default function App(props) {
