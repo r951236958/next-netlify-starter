@@ -50,7 +50,7 @@ export default function Home() {
   const classes = useStyles()
 
   return (
-    <Typography component="div" variant="root">
+    <div className="root">
       <Typography component="main" variant="root" gutterBottom>
         <Header title="Welcome to my app!" />
         <Box my={2}>
@@ -61,7 +61,7 @@ export default function Home() {
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
             <Paper elevation={5}>
-              <List class="menulist">
+              <List className="menulist">
                 <ListSubheader>
                   <span className="subheader">常用連結</span>
                 </ListSubheader>
@@ -211,19 +211,17 @@ export default function Home() {
             </Box>
           </Grid>
         </Grid>
-        <Paper>
-          <SignUp />
-        </Paper>
-        <Grid container spacing={1}>
-          <Grid item md={12} xs={8}></Grid>
 
+        <Grid container justify="center" spacing={1}>
           <Grid item xs={12} sm={6}>
-            <ContactForm />
+            <Box my={4}>
+              <ContactForm />
+            </Box>
           </Grid>
         </Grid>
       </Typography>
 
       <Footer />
-    </Typography>
+    </div>
   )
 }

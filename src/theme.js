@@ -1,23 +1,37 @@
-import { red } from '@material-ui/core/colors';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { red } from '@material-ui/core/colors'
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 
 // Create a theme instance.
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#ffeb3b',
+      main: '#ffeb3b'
     },
     secondary: {
-      main: '#ec407a',
+      main: '#ec407a'
     },
     error: {
-      main: red.A400,
+      main: red.A400
     },
     bk: {
-      main: '#272c34',
+      main: '#272c34'
     },
-    type: 'dark',
+    type: 'dark'
   },
-});
+  root: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"'
+    ].join(',')
+  }
+})
 
-export default theme;
+export default theme
