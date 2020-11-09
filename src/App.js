@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Protected from './Protected'
 import Public from './Public'
-import netlifyIdentity from 'netlify-identity-widget'
+//import netlifyIdentity from 'netlify-identity-widget'
+import netlifyAuth from './netlifyAuth.js'
 import {
   BrowserRouter as Router,
   Route,
@@ -164,6 +165,22 @@ const footers = [
 
 function AuthExample() {
   const classes = useStyles()
+
+  let [loggedIn, setLoggedIn] = useState(netlifyAuth.isAuthenticated)
+
+  useEffect(() => {
+    let isCurrent = true
+    netlifyAuth.initialize((user) => {
+      if (isCurrent) {
+        setLoggedIn(!!user)
+      }
+    })
+
+    return () => {
+      isCurrent = false
+    }
+  }, [])
+
   return (
     <Router>
       <CssBaseline />
@@ -241,7 +258,6 @@ function AuthExample() {
           <Button variant="contained" color="primary" className={classes.link}>
             <Link to="/public">Public Page</Link>
           </Button>
-
           <Button variant="contained" color="primary" className={classes.link}>
             <Link to="/protected">Protected Page</Link>
           </Button>
@@ -334,43 +350,51 @@ function AuthExample() {
   )
 }
 
-const netlifyAuth = {
-  isAuthenticated: false,
-  user: null,
-  authenticate(callback) {
-    this.isAuthenticated = true
-    netlifyIdentity.open()
-    netlifyIdentity.on('login', (user) => {
-      this.user = user
-      callback(user)
-    })
-  },
-  signout(callback) {
-    this.isAuthenticated = false
-    netlifyIdentity.logout()
-    netlifyIdentity.on('logout', () => {
-      this.user = null
-      callback()
-    })
-  }
-}
+//const netlifyAuth = {
+//  isAuthenticated: false,
+//  user: null,
+//  authenticate(callback) {
+//    this.isAuthenticated = true
+//    netlifyIdentity.open()
+//    netlifyIdentity.on('login', (user) => {
+//      this.user = user
+//      callback(user)
+//    })
+//  },
+//  signout(callback) {
+//    this.isAuthenticated = false
+//    netlifyIdentity.logout()
+//    netlifyIdentity.on('logout', () => {
+//      this.user = null
+//      callback()
+//    })
+//  }
+//}
 
 const AuthButton = withRouter(({ history }) =>
   netlifyAuth.isAuthenticated ? (
-    <p className="description">
+    <Typography variant="h5" align="center" color="textSecondary" component="p">
       Welcome!{' '}
       <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         onClick={() => {
           netlifyAuth.signout(() => history.push('/'))
         }}
       >
         Sign out
       </Button>
-    </p>
+    </Typography>
   ) : (
-    <p className="description">You are not logged in.</p>
+    <Typography
+      variant="h5"
+      align="center"
+      color="textSecondary"
+      component="p"
+      className="description"
+    >
+      You are not logged in.
+    </Typography>
   )
 )
 
@@ -420,7 +444,7 @@ class Login extends React.Component {
           You must log in to view the page at {from.pathname}
         </Typography>
         <Typography align="center" gutterBottom>
-          <Button variant="contained" color="secondary" onClick={this.login}>
+          <Button variant="contained" color="primary" onClick={this.login}>
             Log in
           </Button>
         </Typography>

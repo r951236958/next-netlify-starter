@@ -7,18 +7,8 @@ export default function Protected() {
   console.log({ user })
   return (
     <div>
-      <Typography
-        component="h3"
-        variant="h2"
-        align="center"
-        color="textPrimary"
-        gutterBottom
-      >
-        Protected Page
-      </Typography>
-      <p>
-        You are logged in as<b>{user.email}</b>
-      </p>
+      <h3>Protected Page</h3>
+      You are logged in as <b>{user.email}</b>
     </div>
   )
 }
