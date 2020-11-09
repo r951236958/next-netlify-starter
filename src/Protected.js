@@ -8,7 +8,7 @@ export default function Protected() {
   return (
     <div>
       <h3>Protected Page</h3>
-      You are logged in as <b>{user.email}</b>
+      You are logged in as
     </div>
   )
 }
