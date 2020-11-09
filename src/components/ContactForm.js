@@ -49,13 +49,11 @@ class ContactForm extends React.Component {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextField
-              autoComplete="fname"
               variant="outlined"
               required
               fullWidth
               id="name"
               label="Your Name"
-              autoFocus
               type="text"
               name="name"
               value={name}
@@ -64,13 +62,11 @@ class ContactForm extends React.Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              autoComplete="email"
               variant="outlined"
               required
               fullWidth
               id="email"
               label="Your Email"
-              autoFocus
               type="email"
               name="email"
               value={email}

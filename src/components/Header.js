@@ -1,10 +1,29 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    h2: {
+      fontWidth: 500
+    }
+  }
+})
 
 export default function Header({ title }) {
+  const classes = useStyles()
+
   return (
-    <Typography className="title" variant="root" component="h1" gutterBottom>
-      {title}
-    </Typography>
+    <div className={classes.root}>
+      <Typography
+        className={classes.h2}
+        align="center"
+        variant="h2"
+        gutterBottom
+      >
+        {title}
+      </Typography>
+    </div>
   )
 }
