@@ -3,6 +3,10 @@ import Protected from './Protected'
 import Public from './Public'
 //import netlifyIdentity from 'netlify-identity-widget'
 import netlifyAuth from './netlifyAuth.js'
+import TopBar from './components/TopBar'
+import Footer from './components/Footer'
+import HeroCard from './components/HeroCard'
+
 import {
   BrowserRouter as Router,
   Route,
@@ -26,19 +30,6 @@ import MuiLink from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <MuiLink color="inherit" href="https://material-ui.com/">
-        Your Website
-      </MuiLink>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -87,75 +78,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const tiers = [
-  {
-    title: 'Free',
-    price: '0',
-    description: [
-      '10 users included',
-      '2 GB of storage',
-      'Help center access',
-      'Email support'
-    ],
-    buttonText: 'Sign up for free',
-    buttonVariant: 'outlined'
-  },
-  {
-    title: 'Pro',
-    subheader: 'Most popular',
-    price: '15',
-    description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support'
-    ],
-    buttonText: 'Get started',
-    buttonVariant: 'contained'
-  },
-  {
-    title: 'Enterprise',
-    price: '30',
-    description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support'
-    ],
-    buttonText: 'Contact us',
-    buttonVariant: 'outlined'
-  }
-]
-const footers = [
-  {
-    title: 'Company',
-    description: ['Team', 'History', 'Contact us', 'Locations']
-  },
-  {
-    title: 'Features',
-    description: [
-      'Cool stuff',
-      'Random feature',
-      'Team feature',
-      'Developer stuff',
-      'Another one'
-    ]
-  },
-  {
-    title: 'Resources',
-    description: [
-      'Resource',
-      'Resource name',
-      'Another resource',
-      'Final resource'
-    ]
-  },
-  {
-    title: 'Legal',
-    description: ['Privacy policy', 'Terms of use']
-  }
-]
-
 // copied straight from https://reacttraining.com/react-router/web/example/auth-workflow
 ////////////////////////////////////////////////////////////
 // 1. Click the public page
@@ -167,12 +89,14 @@ function AuthExample() {
   const classes = useStyles()
 
   let [loggedIn, setLoggedIn] = useState(netlifyAuth.isAuthenticated)
+  let [user, setUser] = useState(null)
 
   useEffect(() => {
     let isCurrent = true
     netlifyAuth.initialize((user) => {
       if (isCurrent) {
         setLoggedIn(!!user)
+        setUser(user)
       }
     })
 
@@ -181,60 +105,16 @@ function AuthExample() {
     }
   }, [])
 
+  let login = () => {
+    netlifyAuth.authenticate((user) => {
+      setLoggedIn(!!user)
+    })
+  }
+
   return (
     <Router>
       <CssBaseline />
-      <AppBar
-        position="static"
-        color="default"
-        elevation={0}
-        className={classes.appBar}
-      >
-        <Toolbar className={classes.toolbar}>
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            Company name
-          </Typography>
-          <nav>
-            <MuiLink
-              variant="button"
-              color="textPrimary"
-              href="#"
-              className={classes.link}
-            >
-              Features
-            </MuiLink>
-            <MuiLink
-              variant="button"
-              color="textPrimary"
-              href="#"
-              className={classes.link}
-            >
-              Enterprise
-            </MuiLink>
-            <MuiLink
-              variant="button"
-              color="textPrimary"
-              href="#"
-              className={classes.link}
-            >
-              Support
-            </MuiLink>
-          </nav>
-          <Button
-            href="#"
-            color="primary"
-            variant="outlined"
-            className={classes.link}
-          >
-            Login
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <TopBar />
       {/* Hero unit */}
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Route path="/public" component={Public} />
@@ -262,89 +142,17 @@ function AuthExample() {
             <Link to="/protected">Protected Page</Link>
           </Button>
         </Typography>
+
         <Route path="/public" component={Public} />
         <Route path="/login" component={Login} />
         <PrivateRoute path="/protected" component={Protected} />
-        <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map((tier) => (
-            // Enterprise card is full width at sm breakpoint
-            <Grid
-              item
-              key={tier.title}
-              xs={12}
-              sm={tier.title === 'Enterprise' ? 12 : 6}
-              md={4}
-            >
-              <Card>
-                <CardHeader
-                  title={tier.title}
-                  subheader={tier.subheader}
-                  titleTypographyProps={{ align: 'center' }}
-                  subheaderTypographyProps={{ align: 'center' }}
-                  action={tier.title === 'Pro' ? <StarIcon /> : null}
-                  className={classes.cardHeader}
-                />
-                <CardContent>
-                  <div className={classes.cardPricing}>
-                    <Typography component="h2" variant="h3" color="textPrimary">
-                      ${tier.price}
-                    </Typography>
-                    <Typography variant="h6" color="textSecondary">
-                      /mo
-                    </Typography>
-                  </div>
-                  <ul>
-                    {tier.description.map((line) => (
-                      <Typography
-                        component="li"
-                        variant="subtitle1"
-                        align="center"
-                        key={line}
-                      >
-                        {line}
-                      </Typography>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    fullWidth
-                    variant={tier.buttonVariant}
-                    color="primary"
-                  >
-                    {tier.buttonText}
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+        <Box my={4}>
+          <HeroCard />
+        </Box>
       </Container>
 
       {/* Footer */}
-      <Container maxWidth="md" component="footer" className={classes.footer}>
-        <Grid container spacing={4} justify="space-evenly">
-          {footers.map((footer) => (
-            <Grid item xs={6} sm={3} key={footer.title}>
-              <Typography variant="h6" color="textPrimary" gutterBottom>
-                {footer.title}
-              </Typography>
-              <ul>
-                {footer.description.map((item) => (
-                  <li key={item}>
-                    <MuiLink href="#" variant="subtitle1" color="textSecondary">
-                      {item}
-                    </MuiLink>
-                  </li>
-                ))}
-              </ul>
-            </Grid>
-          ))}
-        </Grid>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
-      </Container>
+      <Footer />
       {/* End footer */}
     </Router>
   )
